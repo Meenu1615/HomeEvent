@@ -8,16 +8,15 @@ require("dotenv").config({
 });
 console.log("JWT SECRET LOADED:", Boolean(process.env.JWT_SECRET));
 
-if (!process.env.JWT_SECRET) {
-  throw new Error("JWT_SECRET is missing in .env file");
-}
+// if (!process.env.JWT_SECRET) {
+//   throw new Error("JWT_SECRET is missing in .env file");
+// }
 const app = express();
 
 // Middleware
 app.use(
   cors({
     origin: "http://localhost:5173",
-    methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   }),
 );
@@ -49,7 +48,8 @@ const { doMongooseConnection } = require("./config/mongooseConnect");
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 // API routes
-app.use("/user", userRouter);
+// app.use("/user", userRouter);
+app.use("/", userRouter);
 app.use("/vendor", vendorRouter);
 app.use("/citizen", citizenRouter);
 app.use("/eventServices", eventServicesRouter);
